@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="/createOrUpdate/<%= item._id %>" method="POST">
+    <form action="/profile" method="post" enctype="multipart/form-data">
         <label>
             nombre:
             <input type="text" name="nombre" value="<%= item.nombre %>">
@@ -29,11 +29,13 @@
         </label>
         <br>
         <label>
-            url
-            <input type="text" name="url" value="<%= item.url %>">
-        </label>
+            Imagen del producto:
+        </label> 
         <br>
-        <input type="submit">
+        
+        <input type="file" name="imgProduct" /> <br>
+        
+        <input type="submit"> <br>
     </form>
 </body>
 </html>
