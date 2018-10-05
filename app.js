@@ -54,7 +54,7 @@ app.get("/create", function(req, res) {
     precio: 0,
     descripcion: "",
     color: "",
-    url: ""
+    url: "",
   };
   res.render("form", { item: product });
 });
@@ -65,15 +65,15 @@ app.get("/update/:id", function(req, res) {
   });
 });
 
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
-app.post("/createOrUpdate/:id", urlencodedParser, function(req, res) {
+app.post("/createOrUpdate/:id", upload.single("imgProduct"), function(req, res) {
   let id = req.params.id;
+  let product = Object.assign(req.body ,{url: 'assets/' +req.file.filename})
   if (id == 0) {
-    Products.create(req.body, (err, result) => {
+    Products.create(product, (err, result) => {
       res.redirect("/");
     });
   } else {
-    Products.update({ _id: id }, req.body, (err, result) => {
+    Products.update({ _id: id }, product, (err, result) => {
       res.redirect("/");
     });
   }
@@ -86,8 +86,3 @@ app.get("/delete/:id", function(req, res) {
 });
 
 app.listen(3000, () => console.log("port 3000"));
-
-app.post("/profile", upload.single("imgProduct"), function(req, res, next) {
-  console.log('/profile', req.file, req.body)
-  res.send("OK");
-});
