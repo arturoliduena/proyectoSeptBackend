@@ -28,10 +28,20 @@ let productModel = new mongoose.Schema({
   precio: Number,
   descripcion: String,
   color: String,
-  url: String
+  url: String,
+  comments: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "comments"
+  }]
 });
 
+let commentModel = new mongoose.Schema({
+  comment: { type: String, required: true },
+  puntaje: {type: Number, enum: [1,2,3,4,5]},
+})
+
 let Products = mongoose.model("products", productModel);
+let Comments = mongoose.model("comments", commentModel);
 
 app.set("view engine", "ejs");
 
