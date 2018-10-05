@@ -4,9 +4,20 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost/proyecto");
 const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
-const fs = require("fs");
-const path = require("path");
+// const upload = multer({ dest: "public/" });
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, __dirname + '/public')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '.jpg')
+  }
+})
+ 
+var upload = multer({ storage: storage })
+app.use('/assets/', express.static(__dirname + '/public'))
+
 
 let productModel = new mongoose.Schema({
   nombre: { type: String, required: true },
@@ -73,5 +84,6 @@ app.get("/delete/:id", function(req, res) {
 app.listen(3000, () => console.log("port 3000"));
 
 app.post("/profile", upload.single("imgProduct"), function(req, res, next) {
+  console.log('/profile', req.file, req.body)
   res.send("OK");
 });
