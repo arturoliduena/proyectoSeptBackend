@@ -6,12 +6,16 @@ mongoose.connect("mongodb://localhost/proyecto");
 const multer = require("multer");
 // const upload = multer({ dest: "public/" });
 
+function randomID(){
+  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+}
+
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, __dirname + '/public')
   },
   filename: function (req, file, cb) {
-    cb(null, file.fieldname + '.jpg')
+    cb(null, file.fieldname + randomID() + '.jpg')
   }
 })
  
