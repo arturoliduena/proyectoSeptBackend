@@ -61,7 +61,7 @@ app.get("/", function(req, res) {
 });
 
 app.get("/item/:id", function(req, res) {
-  Products.findById(req.params.id, (err, result) => {
+  Products.findById(req.params.id).populate('comments').exec((err, result) => {
     res.render("item", { item: result });
   });
 });
@@ -113,7 +113,7 @@ app.post("/addComment/:id", urlencodedParser, function(req, res) {
       let allComments = findProduct.comments;
       allComments.push(newComment._id);
       Products.update({ _id: req.params.id },{ comments: allComments },
-       (err, result) => {res.redirect("/");
+       (err, result) => {res.redirect("/item/"+req.params.id);
 }
       );
     });

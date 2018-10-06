@@ -25,6 +25,13 @@
             </p>
         </div>
     </div>
+    <% item.comments.forEach(comment => { %>
+        <div style="border: 2px solid red">
+            <p> id: <%= comment._id %></p>
+            <p> comentario: <%= comment.comment %></p>
+            <p> puntaje: <%= comment.puntaje %> </p>
+        </div>
+    <% }) %>
     <form action="/addComment/<%= item._id %>" method="post" >
         <div class="form-group">
             <label for="comment">Comentario:</label>
