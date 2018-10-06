@@ -12,37 +12,40 @@
 
 <body>
     <div class="card mb-3">
-        <img class="card-img-top" src="<%= item.url %>" alt="Card image cap" style="width: 300px" class="card-body">
-        <h5 class="card-title">
-            <%= item.nombre %>
-        </h5>
-        <p class="card-text">
-            <%= item.descripcion %>
-        </p>
-        <p class="card-text">
-            <%= item.precio %>
-        </p>
-    </div>
-    <form action="/comentarioPuntaje/<%= item._id %>" method="post" enctype="multipart/form-data"></form>
-    <div class="form-group">
-        <label for="comment">Comentario:</label>
-        <textarea class="form-control" rows="3" id="comment"></textarea>
-        <div class="form-group">
-            <label for="sel1">Puntaje:</label>
-            <select class="form-control" id="sel1">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-            </select>
+        <img class="card-img-top" src="http://localhost:3000/<%= item.url %>" alt="Card image cap" style="width: 300px">
+        <div class="card-body">
+            <h5 class="card-title">
+                <%= item.nombre %>
+            </h5>
+            <p class="card-text">
+                <%= item.descripcion %>
+            </p>
+            <p class="card-text">
+                <%= item.precio %>
+            </p>
         </div>
     </div>
-    <input type="submit" name="comentarioPuntaje">
-
+    <form action="/addComment/<%= item._id %>" method="post" >
+        <div class="form-group">
+            <label for="comment">Comentario:</label>
+            <textarea class="form-control" rows="3" id="comment" name="comment"></textarea>
+            <div class="form-group">
+                <label for="sel1">Puntaje:</label>
+                <select class="form-control" id="sel1" name="puntaje">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+        </div>
+        <input type="submit">
+    </form>
 </body>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </html>
